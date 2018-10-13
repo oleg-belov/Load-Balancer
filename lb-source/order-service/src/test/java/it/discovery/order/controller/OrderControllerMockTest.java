@@ -68,7 +68,7 @@ public class OrderControllerMockTest {
 		//then
 		mockBookServer.verify();
 		assertNotNull(order);
-		assertEquals(order.getBookId(), bookId);
-		assertEquals(order.getPrice(), price);
+		assertEquals(bookId, order.getBookId());
+		assertEquals(price, order.getPrice());
 	}
 }
