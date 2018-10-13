@@ -1,0 +1,2 @@
+rootProject.name = 'load-balancer'
+include ':book-service',':client-balancer',':order-service', 'server-balancer'
