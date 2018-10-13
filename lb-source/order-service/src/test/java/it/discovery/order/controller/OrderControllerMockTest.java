@@ -60,7 +60,7 @@ public class OrderControllerMockTest {
 		book.put("price", price);
 		book.put("id", bookId);
 		mockBookServer.expect(requestTo(
-				loadBalancer.getServer().getAddress() + "book/" + bookId))
+				loadBalancer.getServer().getUrl() + "book/" + bookId))
 				.andRespond(withSuccess(
 						jacksonTester.write(book).getJson(),
 						MediaType.APPLICATION_JSON_UTF8));

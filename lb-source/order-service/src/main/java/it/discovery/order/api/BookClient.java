@@ -19,7 +19,7 @@ public class BookClient {
 
 	public double getPrice(int bookId) {
 		Map<String, Object> result = this.restTemplate.getForObject(
-				loadBalancer.getServer().getAddress() + "book/"
+				loadBalancer.getServer().getUrl() + "book/"
 				+ bookId, Map.class);
 
 		return NumberUtils.toDouble(result.get("price").toString());

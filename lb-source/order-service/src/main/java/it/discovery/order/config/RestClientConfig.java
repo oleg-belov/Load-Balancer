@@ -18,7 +18,7 @@ public class RestClientConfig {
 	}
 
 	@Bean
-	@ConfigurationProperties("balancer")
+	@ConfigurationProperties("book-service")
 	public LoadBalancerConfiguration loadBalancerConfiguration() {
 		return new LoadBalancerConfiguration();
 	}
