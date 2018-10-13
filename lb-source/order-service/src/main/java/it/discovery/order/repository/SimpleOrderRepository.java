@@ -1,5 +1,6 @@
 package it.discovery.order.repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,7 @@ public class SimpleOrderRepository implements OrderRepository {
 		if (order.getId() == 0) {
 			counter++;
 			order.setId(counter);
+			order.setCreated(LocalDateTime.now());
 			orders.put(counter, order);
 			System.out.println("*** Order with id=" + order.getId() + " was created");
 		} else {
