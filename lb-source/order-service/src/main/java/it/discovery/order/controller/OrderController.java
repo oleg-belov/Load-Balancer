@@ -21,7 +21,7 @@ public class OrderController {
 
 	@PostMapping(path = "/{bookId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void makeOrder(@PathVariable int bookId) {
+	public Order makeOrder(@PathVariable int bookId) {
 		Order order = new Order();
 
 		double price = this.bookClient.getPrice(bookId);
@@ -30,6 +30,8 @@ public class OrderController {
 		order.setPrice(price);
 
 		orderRepository.save(order);
+
+		return order;
 	}
 
 }
