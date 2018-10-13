@@ -1,5 +1,6 @@
 package it.discovery.order.controller;
 
+import com.obelov.balancer.LoadBalancer;
 import it.discovery.order.OrderApplication;
 import it.discovery.order.model.Order;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @AutoConfigureWebClient
 @SpringBootTest
 @AutoConfigureJsonTesters
-@TestPropertySource(locations="classpath:application.properties")
+@TestPropertySource(locations="classpath:application.yml")
 public class OrderControllerMockTest {
 
 	private MockRestServiceServer mockBookServer;
@@ -42,8 +43,8 @@ public class OrderControllerMockTest {
 	@Autowired
 	private JacksonTester<Map> jacksonTester;
 
-	@Value("${book.service.url}")
-	private String bookServiceBaseURL;
+	@Autowired
+	private LoadBalancer loadBalancer;
 
 	@BeforeEach
 	void setup() {
@@ -59,7 +60,7 @@ public class OrderControllerMockTest {
 		book.put("price", price);
 		book.put("id", bookId);
 		mockBookServer.expect(requestTo(
-				bookServiceBaseURL + "/" + bookId))
+				loadBalancer.getServer().getAddress() + "book/" + bookId))
 				.andRespond(withSuccess(
 						jacksonTester.write(book).getJson(),
 						MediaType.APPLICATION_JSON_UTF8));

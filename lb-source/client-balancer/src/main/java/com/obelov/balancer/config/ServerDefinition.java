@@ -1,4 +1,4 @@
-package com.obelov.balancer.definition;
+package com.obelov.balancer.config;
 
 import lombok.Getter;
 import lombok.Setter;

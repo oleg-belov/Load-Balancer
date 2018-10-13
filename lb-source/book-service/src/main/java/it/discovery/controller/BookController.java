@@ -2,6 +2,7 @@ package it.discovery.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,9 @@ public class BookController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Book> findBookById(@PathVariable int id) {
+	public ResponseEntity<Book> findBookById(@PathVariable int id, HttpServletRequest request) {
+		System.out.println("Request processed by service on port: " + request.getLocalPort());
+
 		if (id <= 0) {
 			throw new BookValidationException(String.format("Book id is not valid: %s", id));
 		}

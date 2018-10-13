@@ -1,6 +1,6 @@
 package com.obelov.balancer;
 
-import com.obelov.balancer.definition.ServerDefinition;
+import com.obelov.balancer.config.ServerDefinition;
 
 public interface HealthCheckStrategy {
 

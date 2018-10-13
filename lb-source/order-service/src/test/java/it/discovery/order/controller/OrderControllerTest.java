@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /*@TestPropertySource(properties = {
 		"book.service.url=http://localhost:8080/book",
 })*/
-@TestPropertySource(locations="classpath:application.properties")
+@TestPropertySource(locations="classpath:application.yml")
 public class OrderControllerTest {
 
 	@Autowired
