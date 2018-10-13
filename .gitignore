@@ -1,0 +1,40 @@
+.settings
+target/
+build
+bin
+# Generated files & directories
+*.bin
+*.class
+*.project
+*.classpath
+*.idea
+*.jar
+*.lock
+*.log
+*.tmp
+ bin/
+gen/
+log/
+logs/
+tmp/
+out/
+ # Allow specific files
+!cms/bin/
+!cms/lib/sides-brpt.jar
+!cms/cmsengine/src/test/resources/test-sides/PULL_SI_RESULTS_Broker_BR999999999_2017-06-29_16-17-05-118_1.log
+ # Ignore specific files
+**/application-local.properties
+ # Eclipse project files
+.classpath
+.project
+.settings/
+ # Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea_modules
+ # OS specific files
+.DS_Store
+*.db
+Thumbs.db
+Desktop.ini
