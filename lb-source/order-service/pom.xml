@@ -34,10 +34,5 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-graphite</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>com.github.ben-manes.caffeine</groupId>
-			<artifactId>caffeine</artifactId>
-		</dependency>
 	</dependencies>
 </project>

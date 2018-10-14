@@ -1,24 +1,10 @@
-book-service:
-  servers:
-  - url: http://localhost:8080/
-    enabled: true
-    zone: US
-  - url: http://localhost:8081/
-    enabled: true
-    zone: Europe
-  - url: http://localhost:8085/
-    enabled: true
-    zone: Europe
+load-balancer:
+  url: http://localhost:9500/
 
 retry-config:
   max-retries: 3
   delay: 1
   max-duration: 30
-
-cache-config:
-  initial-capacity: 100
-  max-capacity: 20000
-  expiration-time: 10
 
 order-service:
   zone: Europe
@@ -34,6 +20,3 @@ management:
     web:
       exposure:
         include: "*"
-spring:
-  profiles:
-    active: cpu-utilization
