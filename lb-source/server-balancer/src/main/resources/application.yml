@@ -15,11 +15,6 @@ retry-config:
   delay: 1
   max-duration: 30
 
-cache-config:
-  initial-capacity: 100
-  max-capacity: 20000
-  expiration-time: 10
-
 order-service:
   zone: Europe
 
@@ -35,5 +30,9 @@ management:
       exposure:
         include: "*"
 spring:
+  cache:
+    caffeine:
+      spec: initialCapacity=100, maximumSize=20000, expireAfterWrite=10s
+
   profiles:
     active: cpu-utilization

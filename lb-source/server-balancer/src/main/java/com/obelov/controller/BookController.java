@@ -3,6 +3,7 @@ package com.obelov.controller;
 import com.obelov.book.Book;
 import com.obelov.rest.client.BookClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ public class BookController {
 	private final BookClient bookClient;
 
 	@GetMapping("/{id}")
+	@Cacheable("books")
 	public ResponseEntity<Book> findBookById(HttpServletRequest request, @PathVariable int id) {
 		return ResponseEntity.ok(bookClient.getBook(id));
 	}

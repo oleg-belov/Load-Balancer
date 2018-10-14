@@ -1,7 +1,6 @@
 package com.obelov.config;
 
 import com.obelov.balancer.*;
-import com.obelov.balancer.config.CacheConfiguration;
 import com.obelov.balancer.config.LoadBalancerConfiguration;
 import com.obelov.balancer.config.RetryConfiguration;
 import com.obelov.balancer.healthcheck.ActuatorHealthCheckService;
@@ -36,14 +35,8 @@ public class RestClientConfig {
 	}
 
 	@Bean
-	@ConfigurationProperties("cache-config")
-	public CacheConfiguration cacheConfiguration() {
-		return new CacheConfiguration();
-	}
-
-	@Bean
 	@Profile("random")
-	public LoadBalancer loadBalancerHealthCheck(LoadBalancerConfiguration loadBalancerConfiguration) {
+	public LoadBalancer loadBalancerHealthCheck() {
 		return new RandomLoadBalancer(healthCheckService());
 	}
 
