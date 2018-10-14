@@ -1,6 +1,7 @@
 package it.discovery.order.config;
 
 import com.obelov.balancer.*;
+import com.obelov.balancer.config.CacheConfiguration;
 import com.obelov.balancer.config.LoadBalancerConfiguration;
 import com.obelov.balancer.config.RetryConfiguration;
 import com.obelov.balancer.healthcheck.ActuatorHealthCheckService;
@@ -32,6 +33,12 @@ public class RestClientConfig {
 	@ConfigurationProperties("retry-config")
 	public RetryConfiguration retryConfiguration() {
 		return new RetryConfiguration();
+	}
+
+	@Bean
+	@ConfigurationProperties("cache-config")
+	public CacheConfiguration cacheConfiguration() {
+		return new CacheConfiguration();
 	}
 
 	@Bean

@@ -49,7 +49,7 @@ public class ActuatorHealthCheckService implements HealthCheckService {
 					"/actuator/health", Map.class);
 			return "UP".equals(status.get("status"));
 		} catch (Exception ex) {
-			log.error(ex.getMessage(), ex);
+			log.debug(ex.getMessage(), ex);
 			return false;
 		}
 	}
