@@ -26,4 +26,4 @@ management:
         include: "*"
 spring:
   profiles:
-    active: geographic
+    active: cpu-utilization

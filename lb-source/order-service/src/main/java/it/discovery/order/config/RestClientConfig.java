@@ -1,9 +1,6 @@
 package it.discovery.order.config;
 
-import com.obelov.balancer.GeographicLoadBalancer;
-import com.obelov.balancer.LoadBalancer;
-import com.obelov.balancer.RandomLoadBalancer;
-import com.obelov.balancer.RoundRobinLoadBalancer;
+import com.obelov.balancer.*;
 import com.obelov.balancer.config.LoadBalancerConfiguration;
 import com.obelov.balancer.healthcheck.ActuatorHealthCheckService;
 import com.obelov.balancer.healthcheck.HealthCheckService;
@@ -46,6 +43,12 @@ public class RestClientConfig {
 	@Profile("round-robin")
 	public LoadBalancer loadBalancerRoundRobin() {
 		return new RoundRobinLoadBalancer(healthCheckService());
+	}
+
+	@Bean
+	@Profile("cpu-utilization")
+	public LoadBalancer loadBalancerCPUUtilization() {
+		return new CPUUtilizationLoadBalancer(healthCheckService());
 	}
 
 	@Bean
