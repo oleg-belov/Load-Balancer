@@ -36,37 +36,37 @@ public class RestClientConfig {
 
 	@Bean
 	@Profile("random")
-	public LoadBalancer loadBalancerHealthCheck() {
-		return new RandomLoadBalancer(healthCheckService());
+	public LoadBalancer loadBalancerHealthCheck(RestTemplateBuilder builder) {
+		return new RandomLoadBalancer(healthCheckService(builder));
 	}
 
 	@Bean
 	@Profile("geographic")
-	public LoadBalancer loadBalancerGeographic(Environment env) {
+	public LoadBalancer loadBalancerGeographic(Environment env, RestTemplateBuilder builder) {
 		return new GeographicLoadBalancer(env, this.loadBalancerConfiguration(),
-				this.healthCheckService());
+				this.healthCheckService(builder));
 	}
 
 	@Bean
 	@Profile("round-robin")
-	public LoadBalancer loadBalancerRoundRobin() {
-		return new RoundRobinLoadBalancer(this.healthCheckService());
+	public LoadBalancer loadBalancerRoundRobin(RestTemplateBuilder builder) {
+		return new RoundRobinLoadBalancer(this.healthCheckService(builder));
 	}
 
 	@Bean
 	@Profile("cpu-utilization")
-	public LoadBalancer loadBalancerCPUUtilization() {
-		return new CPUUtilizationLoadBalancer(this.restService(), this.healthCheckService());
+	public LoadBalancer loadBalancerCPUUtilization(RestTemplateBuilder builder) {
+		return new CPUUtilizationLoadBalancer(this.restService(builder), this.healthCheckService(builder));
 	}
 
 	@Bean
-	public HealthCheckService healthCheckService() {
+	public HealthCheckService healthCheckService(RestTemplateBuilder builder) {
 		return new ActuatorHealthCheckService(
-				this.restService(), this.loadBalancerConfiguration());
+				this.restService(builder), this.loadBalancerConfiguration());
 	}
 
 	@Bean
-	public RestService restService() {
-		return new RestService(this.retryConfiguration());
+	public RestService restService(RestTemplateBuilder builder) {
+		return new RestService(this.retryConfiguration(), builder);
 	}
 }

@@ -30,6 +30,11 @@ management:
       exposure:
         include: "*"
 spring:
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: ADMIN
   cache:
     caffeine:
       spec: initialCapacity=100, maximumSize=20000, expireAfterWrite=10s

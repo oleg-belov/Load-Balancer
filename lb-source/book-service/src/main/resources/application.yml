@@ -1,0 +1,20 @@
+server:
+  port: 9500
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: ADMIN
+
+#run project in cmd
+#mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8085

@@ -23,7 +23,7 @@ public class RestClientConfig {
 	}
 
 	@Bean
-	public RestService restService() {
-		return new RestService(this.retryConfiguration());
+	public RestService restService(RestTemplateBuilder builder) {
+		return new RestService(this.retryConfiguration(), builder);
 	}
 }
