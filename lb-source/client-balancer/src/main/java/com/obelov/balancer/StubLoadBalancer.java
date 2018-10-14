@@ -1,16 +1,21 @@
 package com.obelov.balancer;
 
-import com.obelov.balancer.config.LoadBalancerConfiguration;
-import com.obelov.balancer.config.ServerDefinition;
+import com.obelov.balancer.healthcheck.HealthCheckService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public class StubLoadBalancer implements LoadBalancer {
 
-	private final LoadBalancerConfiguration loadBalancerConfiguration;
+	private final HealthCheckService healthCheckService;
 
 	@Override
 	public String getServer() {
-		return loadBalancerConfiguration.getServers().get(0).getUrl();
+		if (healthCheckService.getAvailableServers().isEmpty()) {
+			log.error("No servers to choose");
+		}
+
+		return healthCheckService.getAvailableServers().get(0);
 	}
 }

@@ -15,5 +15,8 @@ public class ServerDefinition {
 	@NonNull
 	@NotBlank
 	private String url;
+
 	private boolean enabled;
+
+	private String zone;
 }

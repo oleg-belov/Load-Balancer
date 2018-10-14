@@ -2,12 +2,24 @@ book-service:
   servers:
   - url: http://localhost:8080/
     enabled: true
+    zone: US
+  - url: http://localhost:8081/
+    enabled: true
+    zone: Europe
   - url: http://localhost:8085/
     enabled: true
+    zone: Europe
+
+order-service:
+  zone: Europe
 
 server:
   port: 9000
+
 management:
   endpoint:
     health:
       show-details: always
+spring:
+  profiles:
+    active: geographic
