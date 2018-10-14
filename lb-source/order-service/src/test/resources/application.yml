@@ -10,6 +10,11 @@ book-service:
     enabled: true
     zone: Europe
 
+retry-config:
+  max-retries: 3
+  delay: 1
+  max-duration: 30
+
 order-service:
   zone: Europe
 
@@ -20,7 +25,10 @@ management:
   endpoint:
     health:
       show-details: always
-
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 spring:
   profiles:
-    active: geographic
+    active: cpu-utilization

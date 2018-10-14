@@ -7,4 +7,12 @@
   </parent>
   <artifactId>client-balancer</artifactId>
   <name>Client-side load balancer component</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>net.jodah</groupId>
+      <artifactId>failsafe</artifactId>
+      <version>1.1.0</version>
+    </dependency>
+  </dependencies>
 </project>

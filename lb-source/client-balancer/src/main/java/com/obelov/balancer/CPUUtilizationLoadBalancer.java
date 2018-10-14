@@ -1,12 +1,12 @@
 package com.obelov.balancer;
 
 import com.obelov.balancer.healthcheck.HealthCheckService;
+import com.obelov.balancer.rest.service.RestService;
 import com.obelov.balancer.stats.ServerStats;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Comparator;
 import java.util.List;
@@ -17,6 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @RequiredArgsConstructor
 public class CPUUtilizationLoadBalancer implements LoadBalancer {
+
+	private final RestService restService;
 
 	private final HealthCheckService healthCheckService;
 
@@ -43,11 +45,9 @@ public class CPUUtilizationLoadBalancer implements LoadBalancer {
 	}
 
 	private ServerStats queryMetricsAndSaveResult(String url) {
-		RestTemplate restTemplate = new RestTemplate();
-
 		try {
 			log.info("Pinging server ... " + url);
-			Map<String, Object> status = restTemplate.getForObject(url +
+			Map<String, Object> status = restService.getForObject(url +
 					"/actuator/metrics/system.cpu.usage", Map.class);
 			List<Map<String, Object>> procs =
 					(List<Map<String, Object>>) status.get("measurements");

@@ -10,6 +10,11 @@ book-service:
     enabled: true
     zone: Europe
 
+retry-config:
+  max-retries: 3
+  delay: 1
+  max-duration: 30
+
 order-service:
   zone: Europe
 

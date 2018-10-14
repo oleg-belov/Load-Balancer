@@ -2,9 +2,9 @@ package com.obelov.balancer.healthcheck;
 
 import com.obelov.balancer.config.LoadBalancerConfiguration;
 import com.obelov.balancer.config.ServerDefinition;
+import com.obelov.balancer.rest.service.RestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,10 @@ public class ActuatorHealthCheckService implements HealthCheckService {
 
 	private final Map<String, Boolean> servers;
 
-	public ActuatorHealthCheckService(LoadBalancerConfiguration loadBalancerConfiguration) {
+	private final RestService restService;
+
+	public ActuatorHealthCheckService(RestService restService, LoadBalancerConfiguration loadBalancerConfiguration) {
+		this.restService = restService;
 		servers = loadBalancerConfiguration.getServers()
 				.stream().filter(ServerDefinition::isEnabled)
 				.collect(Collectors.toConcurrentMap(
@@ -40,10 +43,9 @@ public class ActuatorHealthCheckService implements HealthCheckService {
 	}
 
 	private boolean pingServerAndSaveResult(String url) {
-		RestTemplate restTemplate = new RestTemplate();
 		try {
 			log.info("Pinging server ... " + url);
-			Map<String, Object> status = restTemplate.getForObject(url +
+			Map<String, Object> status = restService.getForObject(url +
 					"/actuator/health", Map.class);
 			return "UP".equals(status.get("status"));
 		} catch (Exception ex) {

@@ -1,6 +1,7 @@
 package it.discovery.order.api;
 
 import com.obelov.balancer.LoadBalancer;
+import com.obelov.balancer.rest.service.RestService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class BookClient {
 
 	@Autowired
-	private RestTemplate restTemplate;
+	private RestService restService;
 
 	@Autowired
 	private LoadBalancer loadBalancer;
@@ -23,7 +24,7 @@ public class BookClient {
 		String url = loadBalancer.getServer().orElseThrow(() -> new RuntimeException("No available book services"));
 		log.info("Book client. Using target server " + url);
 
-		Map<String, Object> result = this.restTemplate.getForObject(
+		Map<String, Object> result = this.restService.getForObject(
 				url + "book/"+ bookId, Map.class);
 
 		return NumberUtils.toDouble(result.get("price").toString());
