@@ -1,7 +1,9 @@
 package com.obelov.balancer;
 
+import java.util.Optional;
+
 @FunctionalInterface
 public interface LoadBalancer {
 
-	String getServer();
+	Optional<String> getServer();
 }

@@ -7,6 +7,7 @@ import org.springframework.core.env.Environment;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -33,12 +34,16 @@ public class GeographicLoadBalancer implements LoadBalancer {
 						server -> server));
 	}
 	@Override
-	public String getServer() {
+	public Optional getServer() {
 		List<String> zoneServers = healthCheckService.getAvailableServers()
 				.stream().filter(server -> serverZone.equals(
 						servers.get(server).getZone()))
 				.collect(Collectors.toList());
 
-		return zoneServers.get(random.nextInt(zoneServers.size()));
+		if(zoneServers.isEmpty()) {
+			return Optional.empty();
+		}
+
+		return Optional.of(zoneServers.get(random.nextInt(zoneServers.size())));
 	}
 }

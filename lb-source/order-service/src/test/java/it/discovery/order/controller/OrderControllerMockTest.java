@@ -55,11 +55,13 @@ public class OrderControllerMockTest {
 		//given
 		int bookId = 1;
 		double price = 2000;
+		String url = loadBalancer.getServer().orElseThrow(() -> new RuntimeException("No available book services"));
+
 		Map<String, Object> book = new HashMap<>();
 		book.put("price", price);
 		book.put("id", bookId);
 		mockBookServer.expect(requestTo(
-				loadBalancer.getServer() + "book/" + bookId))
+				url + "book/" + bookId))
 				.andRespond(withSuccess(
 						jacksonTester.write(book).getJson(),
 						MediaType.APPLICATION_JSON_UTF8));

@@ -20,7 +20,7 @@ public class BookClient {
 	private LoadBalancer loadBalancer;
 
 	public double getPrice(int bookId) {
-		String url = loadBalancer.getServer();
+		String url = loadBalancer.getServer().orElseThrow(() -> new RuntimeException("No available book services"));
 		log.info("Book client. Using target server " + url);
 
 		Map<String, Object> result = this.restTemplate.getForObject(
