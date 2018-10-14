@@ -3,6 +3,8 @@ package it.discovery.order.config;
 import com.obelov.balancer.LoadBalancer;
 import com.obelov.balancer.RandomLoadBalancer;
 import com.obelov.balancer.config.LoadBalancerConfiguration;
+import com.obelov.balancer.healthcheck.ActuatorHealthCheckService;
+import com.obelov.balancer.healthcheck.HealthCheckService;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +27,11 @@ public class RestClientConfig {
 
 	@Bean
 	public LoadBalancer loadBalancer(LoadBalancerConfiguration loadBalancerConfiguration) {
-		return new RandomLoadBalancer(loadBalancerConfiguration);
+		return new RandomLoadBalancer(healthCheckService());
+	}
+
+	@Bean
+	public HealthCheckService healthCheckService() {
+		return new ActuatorHealthCheckService(loadBalancerConfiguration());
 	}
 }

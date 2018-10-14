@@ -10,7 +10,7 @@ public class StubLoadBalancer implements LoadBalancer {
 	private final LoadBalancerConfiguration loadBalancerConfiguration;
 
 	@Override
-	public ServerDefinition getServer() {
-		return loadBalancerConfiguration.getServers().get(0);
+	public String getServer() {
+		return loadBalancerConfiguration.getServers().get(0).getUrl();
 	}
 }

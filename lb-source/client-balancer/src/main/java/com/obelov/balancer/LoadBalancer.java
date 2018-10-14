@@ -1,8 +1,7 @@
 package com.obelov.balancer;
 
-import com.obelov.balancer.config.ServerDefinition;
-
+@FunctionalInterface
 public interface LoadBalancer {
 
-	ServerDefinition getServer();
+	String getServer();
 }
